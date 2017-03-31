@@ -20,7 +20,7 @@ public:
     bool operator==(const Vertex &other) const;
     bool operator!=(const Vertex &other) const;
 
-    static void make_edge(Vertex& v1, Vertex& v2);
+    static void add_edge(Vertex &v1, Vertex &v2);
     static void remove_edge(Vertex& v1, Vertex& v2);
 
 private:
