@@ -2,3 +2,8 @@
 
 -D CMAKE_C_COMPILER=/usr/local/Cellar/gcc/6.3.0_1/bin/gcc-6
 -D CMAKE_CXX_COMPILER=/usr/local/Cellar/gcc/6.3.0_1/bin/g++-6
+
+## Notes
+
+Have had to use a custom deleter for shared_ptr in Vertex clas - so that if a
+pointer is deleted, then the Vertex object doensn't get deleted

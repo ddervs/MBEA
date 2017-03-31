@@ -3,8 +3,10 @@ project(MBEA)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES main.cpp src/BipartiteGraph.cpp src/BipartiteGraph.h)
+set(SOURCE_FILES main.cpp src/BipartiteGraph.cpp src/BipartiteGraph.h src/Vertex.cpp src/Vertex.h)
 add_executable(MBEA ${SOURCE_FILES})
 
-add_subdirectory(tests)
+include_directories(src)
+
+#add_subdirectory(tests)
 
