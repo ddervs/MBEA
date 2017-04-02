@@ -7,3 +7,6 @@
 
 Have had to use a custom deleter for shared_ptr in Vertex clas - so that if a
 pointer is deleted, then the Vertex object doensn't get deleted
+
+add/remove neighbours_ in Vertex class private so can only add/remove edges.
+

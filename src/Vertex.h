@@ -12,20 +12,22 @@ class Vertex {
 public:
     Vertex(int label);
 
-    void add_neighbour(Vertex& v);
-    void remove_neighbour(Vertex& v);
-
     void print_neighbours();
+    const int& get_label();
 
     bool operator==(const Vertex &other) const;
     bool operator!=(const Vertex &other) const;
 
-    static void add_edge(Vertex &v1, Vertex &v2);
+    static void add_edge(Vertex& v1, Vertex& v2);
     static void remove_edge(Vertex& v1, Vertex& v2);
+    const std::vector<std::shared_ptr<Vertex>>& get_neighbours();
 
 private:
-    std::vector<std::shared_ptr<Vertex>> neighbours;
-    int v_label;
+    std::vector<std::shared_ptr<Vertex>> neighbours_;
+    void add_neighbour(Vertex& v);
+    void remove_neighbour(Vertex& v);
+    int v_label_;
+
 };
 
 #endif //MBEA_VERTEX_H

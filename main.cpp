@@ -14,12 +14,16 @@ void print(const char* in) {
 
 int main() {
 
+    /*
     // Test int BipartiteGraph constructor
-    //std::vector<std::vector<int>> mat = {{0,1,1}, {1,0,0}, {0,1,0}};
-    //BipartiteGraph graph = BipartiteGraph(mat);
-    //graph.print_matrices();
+    std::vector<std::vector<int>> mat = {{0,1,1}, {1,0,0}, {0,1,0}};
+    BipartiteGraph graph = BipartiteGraph(mat);
+    graph.print_matrices();
+    */
 
-    // Test constructors and neighbours
+    /*
+
+    // Test constructors and neighbours_
     Vertex v1 = Vertex(1);
     Vertex v2 = Vertex(2);
     v1.add_neighbour(v2);
@@ -42,7 +46,7 @@ int main() {
     v4.print_neighbours();
     carriage_return();
 
-    // Test removing neighbours
+    // Test removing neighbours_
     Vertex::add_edge(v4, v1);
     v4.remove_neighbour((Vertex&) v3);
     try { v4.remove_neighbour((Vertex&) v3); }
@@ -58,6 +62,18 @@ int main() {
     v4.print_neighbours();
     v1.print_neighbours();
     carriage_return();
+
+    */
+
+    //TODO: Check pointers in Vertex neighbours_ and left/right neighbourhoods in BipartiteGraph agree (i.e. point to same objects)
+
+    std::vector<std::vector<int>> mat = {{0,1,1}, {1,0,0}, {0,1,0}};
+    BipartiteGraph graph = BipartiteGraph(mat);
+
+    // Check correct neighbourhoods imported
+    graph.print_neighbourhoods();
+
+    // Check pointers in left_set, right_set equal to
 
     return 0;
 }

@@ -7,21 +7,33 @@
 
 #include <vector>
 #include <iostream>
+#include "Vertex.h"
 
 class BipartiteGraph {
 public:
+
     BipartiteGraph(const std::vector<std::vector<int>>& incidence_matrix);
     void print_matrices();
     std::vector<std::vector<int>> get_incidence_matrix();
+    void print_neighbourhoods();
+
 private:
-    std::vector<int> left_nodes;
-    std::vector<int> right_nodes;
-    std::vector<std::vector<int>> left_neighbours;
-    std::vector<std::vector<int>> right_neighbours;
-    std::vector<std::vector<int>> inc_mat;
+
+    std::vector<Vertex> left_nodes_;
+    std::vector<Vertex> right_nodes_;
+
+    std::vector<std::vector<std::shared_ptr<Vertex>>> left_neighbours_;
+    std::vector<std::vector<std::shared_ptr<Vertex>>> right_neighbours_;
+
+    std::vector<std::vector<int>> inc_mat_;
+
     void print_matrix(const std::vector<std::vector<int>>& mat);
     void print_vector(const std::vector<int>& vec);
+    void print_set(const std::vector<Vertex>& set_of_vertices);
+    void print_set_neighbourhood(const std::vector<std::vector<std::shared_ptr<Vertex>>>& neighbours);
+
     std::vector<std::vector<int>> transpose(const std::vector<std::vector<int>>& mat);
+
 };
 
 

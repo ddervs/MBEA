@@ -3,53 +3,67 @@
 //
 
 #include "BipartiteGraph.h"
+#include <memory>
 
 BipartiteGraph::BipartiteGraph(const std::vector<std::vector<int>>& incidence_matrix) {
 
-    inc_mat = incidence_matrix;
+    inc_mat_ = incidence_matrix;
 
     const int left_start = 1;
     const int right_start = incidence_matrix.size() + 1;
-
-    for (int i = 0; i < incidence_matrix.size(); i++) {
-        left_nodes.push_back(left_start + i);
-        std::vector<int> left_neighbour;
-        for (int j = 0; j < incidence_matrix[i].size(); j++) {
-
-            if (incidence_matrix[i][j] == 1) {
-                left_neighbour.push_back(right_start + j);
-            }
-
-        }
-        left_neighbours.push_back(left_neighbour);
-    }
-
     const std::vector<std::vector<int>> transposed = transpose(incidence_matrix);
 
-    for (int i = 0; i < transposed.size(); i++) {
-        right_nodes.push_back(right_start + i);
-        std::vector<int> right_neighbour;
-        for (int j = 0; j < transposed[i].size(); j++) {
-
-            if (transposed[i][j] == 1) {
-                right_neighbour.push_back(left_start + j);
-            }
-
-        }
-        right_neighbours.push_back(right_neighbour);
+    // Left vertices
+    for (int i = 0; i < incidence_matrix.size(); i++) {
+        Vertex left_v = Vertex(left_start + i);
+        left_nodes_.push_back(left_v);
     }
+
+    // Right vertices
+    for (int i = 0; i < transposed.size(); i++) {
+        Vertex right_v = Vertex(right_start + i);
+        right_nodes_.push_back(right_v);
+    }
+
+    // Make edges
+    for (int i = 0; i < incidence_matrix.size(); i++) {
+        Vertex left_v = left_nodes_[i];
+        std::vector<int> row = incidence_matrix[i];
+
+        for (int j = 0; j < row.size(); j++){
+            if (incidence_matrix[i][j] == 1){
+                Vertex& left = left_nodes_[i];
+                Vertex& right = right_nodes_[j];
+                Vertex::add_edge(left, right);
+            }
+        }
+    }
+
+    // Left neighbours_
+    for (int i = 0; i < incidence_matrix.size(); i++) {
+        Vertex left_v = left_nodes_[i];
+        left_neighbours_.push_back(left_v.get_neighbours());
+    }
+
+    // Right neighbours_
+    for (int i = 0; i < transposed.size(); i++) {
+        Vertex right_v = right_nodes_[i];
+        right_neighbours_.push_back(right_v.get_neighbours());
+
+    }
+
 }
 
 std::vector<std::vector<int>> BipartiteGraph::get_incidence_matrix(){
-    return inc_mat;
+    return inc_mat_;
 }
 
 void BipartiteGraph::print_matrices() {
-    print_matrix(inc_mat);
+    print_matrix(inc_mat_);
     std::cout << std::endl;
-    print_matrix(left_neighbours);
+    //print_matrix(left_neighbours);
     std::cout << std::endl;
-    print_matrix(right_neighbours);
+    //print_matrix(right_neighbours);
 }
 
 void BipartiteGraph::print_matrix(const std::vector<std::vector<int>>& mat) {
@@ -78,4 +92,26 @@ std::vector<std::vector<int>> BipartiteGraph::transpose(const std::vector<std::v
                 result[i][j] = mat[j][i];
             }
         return result;
+}
+
+void BipartiteGraph::print_set(const std::vector<Vertex> &set_of_vertices) {
+
+}
+
+void BipartiteGraph::print_set_neighbourhood(const std::vector<std::vector<std::shared_ptr<Vertex>>> &neighbours) {
+    for (int i = 0; i < neighbours.size(); i++){
+        std::vector<std::shared_ptr<Vertex>> Nv_list = neighbours[i];
+        for (int j = 0; j < Nv_list.size(); j++){
+            Vertex v = (*Nv_list[j]);
+            int label = v.get_label();
+            std::cout << label;
+        }
+        std::cout << std::endl;
+    }
+}
+
+void BipartiteGraph::print_neighbourhoods() {
+    print_set_neighbourhood(left_neighbours_);
+    print_set_neighbourhood(right_neighbours_);
+
 }
