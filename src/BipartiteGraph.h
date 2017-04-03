@@ -16,6 +16,10 @@ public:
     void print_matrices();
     std::vector<std::vector<int>> get_incidence_matrix();
     void print_neighbourhoods();
+    const std::vector<std::vector<std::shared_ptr<Vertex>>>& get_left_neighbours();
+    const std::vector<std::vector<std::shared_ptr<Vertex>>>& get_right_neighbours();
+    const std::vector<Vertex>& get_left_nodes();
+    const std::vector<Vertex>& get_right_nodes();
 
 private:
 
@@ -29,7 +33,7 @@ private:
 
     void print_matrix(const std::vector<std::vector<int>>& mat);
     void print_vector(const std::vector<int>& vec);
-    void print_set(const std::vector<Vertex>& set_of_vertices);
+
     void print_set_neighbourhood(const std::vector<std::vector<std::shared_ptr<Vertex>>>& neighbours);
 
     std::vector<std::vector<int>> transpose(const std::vector<std::vector<int>>& mat);

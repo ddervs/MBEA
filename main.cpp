@@ -65,15 +65,61 @@ int main() {
 
     */
 
-    //TODO: Check pointers in Vertex neighbours_ and left/right neighbourhoods in BipartiteGraph agree (i.e. point to same objects)
-
-    std::vector<std::vector<int>> mat = {{0,1,1}, {1,0,0}, {0,1,0}};
+    std::vector<std::vector<int>> mat = {{0,1,1}, {1,0,0}, {0,1,0}, {1,1,1}};
     BipartiteGraph graph = BipartiteGraph(mat);
 
     // Check correct neighbourhoods imported
     graph.print_neighbourhoods();
 
-    // Check pointers in left_set, right_set equal to
+    // Check pointers in left_neighbourhood equal to individual Vertex neighbours
+    std::vector<std::vector<std::shared_ptr<Vertex>>> left_hood = graph.get_left_neighbours();
+    std::vector<Vertex> left_nodes = graph.get_left_nodes();
+
+    for (int i = 0; i < left_hood.size(); i++) {
+        std::vector<std::shared_ptr<Vertex>> v_hood_1 = left_hood[i];
+        Vertex v = left_nodes[i];
+        const std::vector<std::shared_ptr<Vertex>>& v_hood_2 = v.get_neighbours();
+        // neighbourhood size
+        if (v_hood_1.size() != v_hood_2.size()) {
+            std::string err_string = "Vertex " + std::to_string(i) + " neighbourhoods different sizes.";
+            throw std::runtime_error(err_string);
+        }
+        // pointer equality
+        for (int j = 0; j < v_hood_1.size(); j++) {
+            std::shared_ptr<Vertex> v_ptr_1 = v_hood_1[j];
+            std::shared_ptr<Vertex> v_ptr_2 = v_hood_2[j];
+            if (v_ptr_1 != v_ptr_2) {
+                std::string err_string = "Left Vertex" + std::to_string(i) +  ", Neighbour: " + std::to_string(j) +  " pointers not equal.\n";
+                throw std::runtime_error(err_string);
+            }
+        }
+    }
+
+
+    // Check pointers in right_neighbourhood equal to individual Vertex neighbours
+    std::vector<std::vector<std::shared_ptr<Vertex>>> right_hood = graph.get_right_neighbours();
+    std::vector<Vertex> right_nodes = graph.get_right_nodes();
+
+    for (int i = 0; i < right_hood.size(); i++) {
+        std::vector<std::shared_ptr<Vertex>> v_hood_1 = right_hood[i];
+        Vertex v = right_nodes[i];
+        const std::vector<std::shared_ptr<Vertex>>& v_hood_2 = v.get_neighbours();
+        // neighbourhood size
+        if (v_hood_1.size() != v_hood_2.size()) {
+            std::string err_string = "Vertex " + std::to_string(i) + " neighbourhoods different sizes.";
+            throw std::runtime_error(err_string);
+        }
+        // pointer equality
+        for (int j = 0; j < v_hood_1.size(); j++) {
+            std::shared_ptr<Vertex> v_ptr_1 = v_hood_1[j];
+            std::shared_ptr<Vertex> v_ptr_2 = v_hood_2[j];
+            if (v_ptr_1 != v_ptr_2) {
+                std::string err_string = "Right Vertex" + std::to_string(i) +  ", Neighbour: " + std::to_string(j) +  " pointers not equal.\n";
+                throw std::runtime_error(err_string);
+            }
+        }
+    }
+
 
     return 0;
 }

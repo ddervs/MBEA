@@ -37,12 +37,7 @@ void Vertex::remove_neighbour(Vertex& v) {
 }
 
 bool Vertex::operator==(const Vertex &other) const {
-   if (v_label_ == other.v_label_) {
-       return true;
-   }
-   else {
-       return false;
-   }
+    return v_label_ == other.v_label_;
 }
 bool Vertex::operator!=(const Vertex &other) const {
     return !(*this == other);

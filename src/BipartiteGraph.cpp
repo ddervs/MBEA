@@ -10,7 +10,7 @@ BipartiteGraph::BipartiteGraph(const std::vector<std::vector<int>>& incidence_ma
     inc_mat_ = incidence_matrix;
 
     const int left_start = 1;
-    const int right_start = incidence_matrix.size() + 1;
+    const int right_start = (const int) (incidence_matrix.size() + 1);
     const std::vector<std::vector<int>> transposed = transpose(incidence_matrix);
 
     // Left vertices
@@ -94,10 +94,6 @@ std::vector<std::vector<int>> BipartiteGraph::transpose(const std::vector<std::v
         return result;
 }
 
-void BipartiteGraph::print_set(const std::vector<Vertex> &set_of_vertices) {
-
-}
-
 void BipartiteGraph::print_set_neighbourhood(const std::vector<std::vector<std::shared_ptr<Vertex>>> &neighbours) {
     for (int i = 0; i < neighbours.size(); i++){
         std::vector<std::shared_ptr<Vertex>> Nv_list = neighbours[i];
@@ -114,4 +110,20 @@ void BipartiteGraph::print_neighbourhoods() {
     print_set_neighbourhood(left_neighbours_);
     print_set_neighbourhood(right_neighbours_);
 
+}
+
+const std::vector<std::vector<std::shared_ptr<Vertex>>> & BipartiteGraph::get_right_neighbours() {
+    return right_neighbours_;
+}
+
+const std::vector<std::vector<std::shared_ptr<Vertex>>> & BipartiteGraph::get_left_neighbours() {
+    return left_neighbours_;
+}
+
+const std::vector<Vertex> & BipartiteGraph::get_left_nodes() {
+    return left_nodes_;
+}
+
+const std::vector<Vertex> & BipartiteGraph::get_right_nodes() {
+    return right_nodes_;
 }
