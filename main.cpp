@@ -65,9 +65,10 @@ int main() {
 
     */
 
-    std::vector<std::vector<int>> mat = {{0,1,1}, {1,0,0}, {0,1,0}, {1,1,1}};
+    const std::vector<std::vector<int>> & mat = {{0,1,1}, {1,0,0}, {0,1,0}, {1,1,1}};
     BipartiteGraph graph = BipartiteGraph(mat);
-
+    
+    /*
     // Check correct neighbourhoods imported
     graph.print_neighbourhoods();
 
@@ -119,7 +120,7 @@ int main() {
             }
         }
     }
-
-
+    */
+    
     return 0;
 }

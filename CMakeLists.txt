@@ -8,5 +8,5 @@ add_executable(MBEA ${SOURCE_FILES})
 
 include_directories(src)
 
-#add_subdirectory(tests)
+add_subdirectory(tests)
 
