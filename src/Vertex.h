@@ -12,7 +12,7 @@ class Vertex {
 public:
     Vertex(int label);
 
-    void print_neighbours();
+    std::string get_neighbours_string();
     const int& get_label();
 
     bool operator==(const Vertex &other) const;

@@ -3,6 +3,8 @@ set(CMAKE_CXX_STANDARD 11)
 
 #add_compile_options(--version)
 
+include(CTest)
+
 include_directories(lib/googletest-master/googletest/include ../src)
 
 add_subdirectory(lib/googletest-master)
@@ -15,7 +17,8 @@ set(TMP_DIR ${CMAKE_BINARY_DIR}/Testing/Temporary)
 enable_testing()
 
 set(TEST_CASES
-       basicTests
+       TestVertex
+       TestBipartiteGraph
         )
 
 foreach(_test_case ${TEST_CASES})
@@ -30,5 +33,5 @@ endforeach()
 # Dont forget its:  add_test(<test name (globally unique) > <exe name> <argument1> <argument2>
 ##################################################################################################
 
-add_test(basic ${EXECUTABLE_OUTPUT_PATH}/BasicTest)
-
+add_test(vertex_class TestVertex)
+add_test(bipartite_graph_class TestBipartiteGraph)

@@ -4,10 +4,13 @@
 
 #include "BipartiteGraph.h"
 #include <memory>
+#include <string>
 
 BipartiteGraph::BipartiteGraph(const std::vector<std::vector<int>>& incidence_matrix) {
 
     inc_mat_ = incidence_matrix;
+
+    check_input(incidence_matrix);
 
     const int left_start = 1;
     const int right_start = (const int) (incidence_matrix.size() + 1);
@@ -94,21 +97,28 @@ std::vector<std::vector<int>> BipartiteGraph::transpose(const std::vector<std::v
         return result;
 }
 
-void BipartiteGraph::print_set_neighbourhood(const std::vector<std::vector<std::shared_ptr<Vertex>>> &neighbours) {
+std::string BipartiteGraph::get_neighbourhood_string(const std::vector<std::vector<std::shared_ptr<Vertex>>> &neighbours) {
+
+    std::string out;
     for (int i = 0; i < neighbours.size(); i++){
         std::vector<std::shared_ptr<Vertex>> Nv_list = neighbours[i];
         for (int j = 0; j < Nv_list.size(); j++){
             Vertex v = (*Nv_list[j]);
             int label = v.get_label();
-            std::cout << label;
+            out += std::to_string(label) + " ";
         }
-        std::cout << std::endl;
+        out += "\n";
     }
+    return out;
 }
 
-void BipartiteGraph::print_neighbourhoods() {
-    print_set_neighbourhood(left_neighbours_);
-    print_set_neighbourhood(right_neighbours_);
+std::string BipartiteGraph::print_neighbourhoods() {
+    std::string out;
+
+    out += get_neighbourhood_string(left_neighbours_);
+    out += "\n";
+    out += get_neighbourhood_string(right_neighbours_);
+    return out;
 
 }
 
@@ -126,4 +136,25 @@ const std::vector<Vertex> & BipartiteGraph::get_left_nodes() {
 
 const std::vector<Vertex> & BipartiteGraph::get_right_nodes() {
     return right_nodes_;
+}
+
+void BipartiteGraph::check_input(const std::vector<std::vector<int>> &incidence_matrix) {
+
+    auto col_size = incidence_matrix[0].size();
+
+    for (int i = 0; i < col_size; i++) {
+        auto row = incidence_matrix[i];
+        auto size = row.size();
+        if (size != col_size) {
+            throw std::runtime_error("BipartiteGraph - Input matrix must have same number of elements in each row.");
+        }
+        for (int j = 0; j < size; j++) {
+            int elem = incidence_matrix[i][j];
+            if (not ((elem == 1) or (elem == 0))){
+                throw std::runtime_error("BipartiteGraph - Input Matrix needs to be made of zeros and ones.");
+            }
+
+        }
+    }
+    
 }

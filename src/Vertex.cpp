@@ -82,12 +82,16 @@ inline bool operator==(const Vertex lhs, const std::shared_ptr<Vertex>& rhs) {
 
 }
 
-void Vertex::print_neighbours() {
+std::string Vertex::get_neighbours_string() {
+
+    std::string out;
+
     for (int i = 0; i < neighbours_.size(); i++) {
         Vertex& v = *neighbours_[i];
-        std::cout << v.v_label_;
+        std::string label_str = std::to_string(v.v_label_);
+        out += label_str + " ";
     }
-    std::cout << std::endl;
+    return out;
 }
 
 const std::vector<std::shared_ptr<Vertex>> & Vertex::get_neighbours() {
