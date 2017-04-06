@@ -26,13 +26,14 @@ public:
     static void remove_edge(Vertex& v1, Vertex& v2);
     const std::vector<std::shared_ptr<Vertex>>& get_neighbours();
     int num_neighbours() const;
+    int num_neighbours_of_v_in_set(std::vector<Vertex>& set);
+
 
 private:
     std::vector<std::shared_ptr<Vertex>> neighbours_;
     void add_neighbour(Vertex& v);
     void remove_neighbour(Vertex& v);
     int v_label_;
-
 };
 
 struct num_neighbours_cmp
