@@ -30,7 +30,6 @@ BipartiteGraph::BipartiteGraph(const std::vector<std::vector<int>>& incidence_ma
 
     // Make edges
     for (int i = 0; i < incidence_matrix.size(); i++) {
-        Vertex left_v = left_nodes_[i];
         std::vector<int> row = incidence_matrix[i];
 
         for (int j = 0; j < row.size(); j++){
@@ -140,12 +139,12 @@ const std::vector<Vertex> & BipartiteGraph::get_right_nodes() {
 
 void BipartiteGraph::check_input(const std::vector<std::vector<int>> &incidence_matrix) {
 
-    auto col_size = incidence_matrix[0].size();
+    auto row_size = incidence_matrix[0].size();
 
-    for (int i = 0; i < col_size; i++) {
+    for (int i = 0; i < incidence_matrix.size(); i++) {
         auto row = incidence_matrix[i];
         auto size = row.size();
-        if (size != col_size) {
+        if (size != row_size) {
             throw std::runtime_error("BipartiteGraph - Input matrix must have same number of elements in each row.");
         }
         for (int j = 0; j < size; j++) {
@@ -158,3 +157,8 @@ void BipartiteGraph::check_input(const std::vector<std::vector<int>> &incidence_
     }
     
 }
+
+BipartiteGraph::BipartiteGraph() {
+
+}
+

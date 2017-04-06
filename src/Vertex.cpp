@@ -82,6 +82,16 @@ inline bool operator==(const Vertex lhs, const std::shared_ptr<Vertex>& rhs) {
 
 }
 
+bool Vertex::operator>(const Vertex &other) const {
+    Vertex & rhs = const_cast<Vertex&>(other);
+    return this->v_label_ > rhs.get_label();
+}
+
+bool Vertex::operator<(const Vertex &other) const {
+    Vertex & rhs = const_cast<Vertex&>(other);
+    return this->v_label_ < rhs.get_label();
+}
+
 std::string Vertex::get_neighbours_string() {
 
     std::string out;
@@ -101,3 +111,5 @@ const std::vector<std::shared_ptr<Vertex>> & Vertex::get_neighbours() {
 const int & Vertex::get_label() {
     return v_label_;
 }
+
+
