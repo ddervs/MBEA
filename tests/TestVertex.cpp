@@ -30,6 +30,22 @@ TEST(vertex_test, neighbourhood){
     ASSERT_EQ(v3.get_neighbours_string(), "2 ");
 }
 
+TEST(vertex_test, is_neighbour) {
+    Vertex v1 = Vertex(1);
+    Vertex v2 = Vertex(2);
+    Vertex v3 = Vertex(3);
+
+    Vertex::add_edge(v1, v2);
+    Vertex::add_edge(v2, v3);
+    
+    ASSERT_TRUE(v1.is_neighbour(v2));
+    ASSERT_TRUE(v2.is_neighbour(v1));
+    ASSERT_TRUE(v2.is_neighbour(v3));
+    ASSERT_TRUE(v3.is_neighbour(v2));
+    
+}
+
+
 int main (int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
 

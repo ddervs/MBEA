@@ -116,5 +116,9 @@ int Vertex::num_neighbours() const {
     return (int) neighbours_.size();
 }
 
+bool Vertex::is_neighbour(const Vertex &other) const {
+    return std::find(neighbours_.begin(), neighbours_.end(), other) != neighbours_.end();
+}
+
 
 
