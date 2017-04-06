@@ -10,3 +10,8 @@ pointer is deleted, then the Vertex object doensn't get deleted
 
 add/remove neighbours_ in Vertex class private so can only add/remove edges.
 
+BipartiteGraph protected variables/methods so freely used by Biclique
+
+Many prinintg methods used for testing, ideally should have used Google Mock,
+but too much hassle
+

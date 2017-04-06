@@ -5,8 +5,6 @@
 #include "gtest/gtest.h"
 #include "BipartiteGraph.h"
 #include "Biclique.h"
-#include <string>
-
 
 TEST(biclique_test, matrix_constructor) {
 

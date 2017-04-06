@@ -23,6 +23,7 @@ public:
     static void add_edge(Vertex& v1, Vertex& v2);
     static void remove_edge(Vertex& v1, Vertex& v2);
     const std::vector<std::shared_ptr<Vertex>>& get_neighbours();
+    int num_neighbours() const;
 
 private:
     std::vector<std::shared_ptr<Vertex>> neighbours_;
@@ -31,5 +32,13 @@ private:
     int v_label_;
 
 };
+
+struct num_neighbours_cmp
+{
+    inline bool operator() (const Vertex& v1, const Vertex& v2)
+    {
+        return (v1.num_neighbours() < v2.num_neighbours());
+    }
+};// comparator function by number of neighbours - overrides default of label
 
 #endif //MBEA_VERTEX_H

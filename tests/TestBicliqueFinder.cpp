@@ -12,7 +12,15 @@ TEST(biclique_finder_test, constructor) {
     const std::vector<std::vector<int>> & mat = {{0,1,1}, {1,0,0}, {0,1,0}, {1,1,1}};
     BipartiteGraph graph = BipartiteGraph(mat);
     BicliqueFinder finder = BicliqueFinder(graph);
+    ASSERT_EQ(finder.get_LRPQ_initial(), "1 2 3 4 \n\n5 6 7 \n\n");
 
+}
+
+TEST(biclique_finder_test, get_maximal_throws) {
+    const std::vector<std::vector<int>> & mat = {{0,1,1}, {1,0,0}, {0,1,0}, {1,1,1}};
+    BipartiteGraph graph = BipartiteGraph(mat);
+    BicliqueFinder finder = BicliqueFinder(graph);
+    ASSERT_ANY_THROW(finder.get_maximal_bicliques());
 }
 
 int main (int argc, char** argv) {

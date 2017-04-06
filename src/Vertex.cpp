@@ -112,4 +112,9 @@ const int & Vertex::get_label() {
     return v_label_;
 }
 
+int Vertex::num_neighbours() const {
+    return (int) neighbours_.size();
+}
+
+
 
