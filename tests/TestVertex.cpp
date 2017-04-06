@@ -64,6 +64,19 @@ TEST(vertex_test, num_neighbours_of_v_in_set) {
 
 }
 
+TEST(vertex_test, is_member) {
+
+    Vertex v1 = Vertex(1);
+    Vertex v2 = Vertex(2);
+    Vertex v3 = Vertex(3);
+    Vertex v4 = Vertex(4);
+
+    std::vector<Vertex> test_set = {v2, v3, v4};
+
+    ASSERT_TRUE(v2.is_member(test_set));
+    ASSERT_FALSE(v1.is_member(test_set));
+}
+
 int main (int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
 

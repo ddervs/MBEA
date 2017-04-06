@@ -26,7 +26,8 @@ public:
     static void remove_edge(Vertex& v1, Vertex& v2);
     const std::vector<std::shared_ptr<Vertex>>& get_neighbours();
     int num_neighbours() const;
-    int num_neighbours_of_v_in_set(std::vector<Vertex>& set);
+    int num_neighbours_of_v_in_set(const std::vector<Vertex>& set);
+    bool is_member(const std::vector<Vertex>& set) const;
 
 
 private:
