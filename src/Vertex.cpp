@@ -3,6 +3,7 @@
 //
 
 #include "Vertex.h"
+#include "VertexSet.h"
 #include <iostream>
 #include <algorithm>
 #include <exception>

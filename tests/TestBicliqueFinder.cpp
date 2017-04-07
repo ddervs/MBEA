@@ -21,6 +21,15 @@ TEST(biclique_finder_test, get_maximal_throws) {
     BipartiteGraph graph = BipartiteGraph(mat);
     BicliqueFinder finder = BicliqueFinder(graph);
     ASSERT_ANY_THROW(finder.get_maximal_bicliques());
+    ASSERT_ANY_THROW(finder.get_num_bicliques());
+}
+
+TEST(biclique_finder_test, improved) {
+    const std::vector<std::vector<int>> & mat = {{0,1,1}, {1,0,0}, {0,1,0}, {1,1,1}};
+    BipartiteGraph graph = BipartiteGraph(mat);
+    BicliqueFinder finder = BicliqueFinder(graph);
+    std::string algorithm = "improved";
+    finder.find_maximal_bicliques(algorithm);
 }
 
 int main (int argc, char** argv) {

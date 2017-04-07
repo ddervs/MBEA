@@ -5,6 +5,7 @@
 #include "VertexSet.h"
 #include <algorithm>
 #include <string>
+#include <iostream>
 
 void VertexSet::add_vertex(const Vertex &v) {
 
@@ -25,7 +26,7 @@ std::string VertexSet::to_string() {
 
     std::string out;
     for (int i = 0; i < set_of_vertices_.size(); i++) {
-        out += set_of_vertices_[i].get_label() + " ";
+        out += std::to_string(set_of_vertices_[i].get_label()) + " ";
     }
 
     return out;
@@ -44,4 +45,33 @@ bool VertexSet::operator==(const VertexSet &other) const {
 VertexSet::VertexSet() {
 
 }
+
+VertexSet::VertexSet(const std::vector<Vertex> & nodes_in) {
+    set_of_vertices_ = nodes_in;
+
+}
+
+void VertexSet::sort_by_num_neighbours() {
+    std::sort(set_of_vertices_.begin(), set_of_vertices_.end(), num_neighbours_cmp());
+}
+
+
+std::vector<Vertex> VertexSet::get_set() const {
+    return set_of_vertices_;
+}
+
+int VertexSet::size() const{
+    return set_of_vertices_.size();
+}
+
+Vertex VertexSet::get_vertex(int i) const{
+    return set_of_vertices_[i];
+}
+
+bool VertexSet::empty() const {
+    return set_of_vertices_.empty();
+}
+
+
+
 

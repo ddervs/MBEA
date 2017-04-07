@@ -15,3 +15,7 @@ BipartiteGraph protected variables/methods so freely used by Biclique
 Many prinintg methods used for testing, ideally should have used Google Mock,
 but too much hassle
 
+note in biclique_find() methods that we pass by non-const references so that
+input variables cn be edited. Vital for the recursion in the algorithm to
+work.
+

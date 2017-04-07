@@ -29,9 +29,9 @@ TEST(vertex_set_test, remove_vertex) {
 
 TEST(vertex_set_test, equality) {
 
-    Vertex v1 = Vertex(v1);
-    Vertex v2 = Vertex(v2);
-    Vertex v3 = Vertex(v3);
+    Vertex v1 = Vertex(1);
+    Vertex v2 = Vertex(2);
+    Vertex v3 = Vertex(3);
 
     VertexSet S1 = VertexSet();
     VertexSet S2 = VertexSet();
@@ -45,6 +45,27 @@ TEST(vertex_set_test, equality) {
     S2.add_vertex(v2);
 
     ASSERT_EQ(S1, S2);
+}
+
+
+TEST(vertex_set_test, sort_by_num_neighbours) {
+
+    Vertex v1 = Vertex(1);
+    Vertex v2 = Vertex(2);
+    Vertex v3 = Vertex(3);
+
+    Vertex::add_edge(v1, v2);
+    Vertex::add_edge(v2, v3);
+
+    VertexSet S = VertexSet();
+    S.add_vertex(v1);
+    S.add_vertex(v2);
+    S.add_vertex(v3);
+
+    S.sort_by_num_neighbours();
+
+    ASSERT_TRUE((S.to_string() == "1 3 2 ") or (S.to_string() == "3 1 2 ") );
+
 }
 
 int main (int argc, char** argv) {
