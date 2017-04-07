@@ -13,7 +13,7 @@ class Biclique : public BipartiteGraph{
 public:
 
     Biclique(const std::vector<std::vector<int>> &incidence_matrix);
-    Biclique(const std::vector<Vertex>& left_vertices, const std::vector<Vertex>& right_vertices);
+    Biclique(const std::vector<std::shared_ptr<Vertex>>& left_vertices, const std::vector<std::shared_ptr<Vertex>>& right_vertices);
 
     bool is_maximal;
 

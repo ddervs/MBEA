@@ -15,14 +15,15 @@ TEST(biclique_test, matrix_constructor) {
 
 TEST(biclique_test, vertex_set_constructor) {
 
-    std::vector<Vertex> left_vertices = {Vertex(1), Vertex(2), Vertex(3)};
-    std::vector<Vertex> right_vertices = {Vertex(4), Vertex(5), Vertex(6)};
+    std::vector<std::shared_ptr<Vertex>> left_vertices = {std::shared_ptr<Vertex>(new Vertex(1)), std::shared_ptr<Vertex>(new Vertex(2)), std::shared_ptr<Vertex>(new Vertex(3))};
+
+    std::vector<std::shared_ptr<Vertex>> right_vertices = {std::shared_ptr<Vertex>(new Vertex(4)), std::shared_ptr<Vertex>(new Vertex(5)), std::shared_ptr<Vertex>(new Vertex(6))};
 
     Biclique graph = Biclique(left_vertices, right_vertices);
 
     ASSERT_EQ(graph.print_neighbourhoods(), "4 5 6 \n4 5 6 \n4 5 6 \n\n1 2 3 \n1 2 3 \n1 2 3 \n");
 
-    right_vertices = {Vertex(1), Vertex(5), Vertex(6)};
+    right_vertices = {std::shared_ptr<Vertex>(new Vertex(1)), std::shared_ptr<Vertex>(new Vertex(5)), std::shared_ptr<Vertex>(new Vertex(6))};
 
     ASSERT_ANY_THROW(Biclique graph = Biclique(left_vertices, right_vertices));
 

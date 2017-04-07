@@ -8,8 +8,8 @@
 
 TEST(vertex_set_test, add_vertex) {
 
-    Vertex v1 = Vertex(1);
-    Vertex v2 = Vertex(2);
+    std::shared_ptr<Vertex>v1(new Vertex(1));
+    std::shared_ptr<Vertex>v2(new Vertex(2));
 
     VertexSet S1 = VertexSet();
 
@@ -29,9 +29,9 @@ TEST(vertex_set_test, remove_vertex) {
 
 TEST(vertex_set_test, equality) {
 
-    Vertex v1 = Vertex(1);
-    Vertex v2 = Vertex(2);
-    Vertex v3 = Vertex(3);
+    std::shared_ptr<Vertex>v1(new Vertex(1));
+    std::shared_ptr<Vertex>v2(new Vertex(2));
+    std::shared_ptr<Vertex>v3(new Vertex(3));
 
     VertexSet S1 = VertexSet();
     VertexSet S2 = VertexSet();
@@ -50,12 +50,13 @@ TEST(vertex_set_test, equality) {
 
 TEST(vertex_set_test, sort_by_num_neighbours) {
 
-    Vertex v1 = Vertex(1);
-    Vertex v2 = Vertex(2);
-    Vertex v3 = Vertex(3);
+    std::shared_ptr<Vertex>v1(new Vertex(1));
+    std::shared_ptr<Vertex>v2(new Vertex(2));
+    std::shared_ptr<Vertex>v3(new Vertex(3));
 
-    Vertex::add_edge(v1, v2);
-    Vertex::add_edge(v2, v3);
+
+    Vertex::add_edge((*v1), (*v2));
+    Vertex::add_edge((*v2), (*v3));
 
     VertexSet S = VertexSet();
     S.add_vertex(v1);

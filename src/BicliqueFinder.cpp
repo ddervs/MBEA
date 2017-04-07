@@ -49,19 +49,19 @@ std::string BicliqueFinder::get_LRPQ_initial() {
     std::string out;
 
     for (int i = 0; i < L_initial_.size(); i++){
-        out += std::to_string(L_initial_.get_vertex(i).get_label()) + " ";
+        out += std::to_string((*L_initial_.get_vertex(i)).get_label()) + " ";
     }
     out += "\n";
     for (int i = 0; i < R_initial_.size(); i++){
-        out += std::to_string(R_initial_.get_vertex(i).get_label()) + " ";
+        out += std::to_string((*R_initial_.get_vertex(i)).get_label()) + " ";
     }
     out += "\n";
     for (int i = 0; i < P_initial_.size(); i++){
-        out += std::to_string(P_initial_.get_vertex(i).get_label()) + " ";
+        out += std::to_string((*P_initial_.get_vertex(i)).get_label()) + " ";
     }
     out += "\n";
     for (int i = 0; i < Q_initial_.size(); i++){
-        out += std::to_string(Q_initial_.get_vertex(i).get_label()) + " ";
+        out += std::to_string((*Q_initial_.get_vertex(i)).get_label()) + " ";
     }
     out += "\n";
 
@@ -89,25 +89,24 @@ void BicliqueFinder::biclique_find_improved(const VertexSet &L_in, const VertexS
         std::cout << "P = ";
         print_set(P);
 
-        Vertex x = P.get_vertex(i);
-        std::cout << "x = " + std::to_string(x.get_label()) << std::endl;
+        std::shared_ptr<Vertex> x = P.get_vertex(i);
+        std::cout << "x = " + std::to_string((*x).get_label()) << std::endl;
         VertexSet R_prime = R;
         R_prime.add_vertex(x);
         std::cout << "R\' = ";
         print_set(R_prime);
 
         VertexSet L_prime;
-        VertexSet overline_L_prime;
+        VertexSet overline_L_prime = L;
         VertexSet C;
 
         for (int j = 0; j < L.size(); j++) {
-            Vertex u = L.get_vertex(j);
-            if (u.is_neighbour(x)) {
+            std::shared_ptr<Vertex> u = L.get_vertex(j);
+            if ((*u).is_neighbour(*x)) {
                 L_prime.add_vertex(u);
+                overline_L_prime.remove_vertex(u);
             }
-            else {
-                overline_L_prime.add_vertex(u);
-            }
+
         }
         C.add_vertex(x);
 
@@ -128,9 +127,9 @@ void BicliqueFinder::biclique_find_improved(const VertexSet &L_in, const VertexS
         print_set(Q);
 
         for (int j = 0; j < Q.size(); j++) {
-            Vertex v = Q.get_vertex(j);
-            std::cout << "v = " + std::to_string(v.get_label()) << std::endl;
-            int num_L_prime_neighbours = v.num_neighbours_of_v_in_set(L_prime.get_set());
+            std::shared_ptr<Vertex> v = Q.get_vertex(j);
+            std::cout << "v = " + std::to_string((*v).get_label()) << std::endl;
+            int num_L_prime_neighbours = (*v).num_neighbours_of_v_in_set(L_prime.get_set());
 
             if (num_L_prime_neighbours == L_prime.size()) {
                 is_maximal = false;
@@ -148,15 +147,15 @@ void BicliqueFinder::biclique_find_improved(const VertexSet &L_in, const VertexS
     //TODO: More print statements
         if (is_maximal) {
             for (int j = 0; j < P.size(); j++) {
-                Vertex v = P.get_vertex(j);
+                std::shared_ptr<Vertex> v = P.get_vertex(j);
                 if(v == x) {
                     continue;
                 }
 
-                int num_L_prime_neighbours = v.num_neighbours_of_v_in_set(L_prime.get_set());
+                int num_L_prime_neighbours = (*v).num_neighbours_of_v_in_set(L_prime.get_set());
                 if (num_L_prime_neighbours == L_prime.size()) {
                     R_prime.add_vertex(v);
-                    int num_overline_L_prime_neighbours = v.num_neighbours_of_v_in_set(overline_L_prime.get_set());
+                    int num_overline_L_prime_neighbours = (*v).num_neighbours_of_v_in_set(overline_L_prime.get_set());
                     if(num_overline_L_prime_neighbours == 0) {
                         C.add_vertex(v);
                     }
@@ -176,7 +175,7 @@ void BicliqueFinder::biclique_find_improved(const VertexSet &L_in, const VertexS
         }
         for (int j = 0; j < C.size(); j++) {
 
-            Vertex v = C.get_vertex(j);
+            std::shared_ptr<Vertex> v = C.get_vertex(j);
             Q.add_vertex(v);
             P.remove_vertex(v);
 

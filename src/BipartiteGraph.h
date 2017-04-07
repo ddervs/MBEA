@@ -23,15 +23,15 @@ public:
     std::vector<std::vector<int>> get_incidence_matrix();
     const std::vector<std::vector<std::shared_ptr<Vertex>>>& get_left_neighbours();
     const std::vector<std::vector<std::shared_ptr<Vertex>>>& get_right_neighbours();
-    const std::vector<Vertex>& get_left_nodes();
-    const std::vector<Vertex>& get_right_nodes();
+    std::vector<std::shared_ptr<Vertex>> get_left_nodes();
+    std::vector<std::shared_ptr<Vertex>> get_right_nodes();
 
 protected:
 
     std::vector<std::vector<int>> inc_mat_;
 
-    std::vector<Vertex> left_nodes_;
-    std::vector<Vertex> right_nodes_;
+    std::vector<std::shared_ptr<Vertex>> left_nodes_;
+    std::vector<std::shared_ptr<Vertex>> right_nodes_;
 
     std::vector<std::vector<std::shared_ptr<Vertex>>> left_neighbours_;
     std::vector<std::vector<std::shared_ptr<Vertex>>> right_neighbours_;

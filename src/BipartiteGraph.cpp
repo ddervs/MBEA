@@ -18,14 +18,14 @@ BipartiteGraph::BipartiteGraph(const std::vector<std::vector<int>>& incidence_ma
 
     // Left vertices
     for (int i = 0; i < incidence_matrix.size(); i++) {
-        Vertex left_v = Vertex(left_start + i);
-        left_nodes_.push_back(left_v);
+        Vertex *left_v = new Vertex(left_start + i);
+        left_nodes_.push_back(std::shared_ptr<Vertex>(left_v));
     }
 
     // Right vertices
     for (int i = 0; i < transposed.size(); i++) {
-        Vertex right_v = Vertex(right_start + i);
-        right_nodes_.push_back(right_v);
+        Vertex *right_v = new Vertex(right_start + i);
+        right_nodes_.push_back(std::shared_ptr<Vertex>(right_v));
     }
 
     // Make edges
@@ -34,8 +34,8 @@ BipartiteGraph::BipartiteGraph(const std::vector<std::vector<int>>& incidence_ma
 
         for (int j = 0; j < row.size(); j++){
             if (incidence_matrix[i][j] == 1){
-                Vertex& left = left_nodes_[i];
-                Vertex& right = right_nodes_[j];
+                Vertex& left = *left_nodes_[i];
+                Vertex& right = *right_nodes_[j];
                 Vertex::add_edge(left, right);
             }
         }
@@ -43,13 +43,13 @@ BipartiteGraph::BipartiteGraph(const std::vector<std::vector<int>>& incidence_ma
 
     // Left neighbours_
     for (int i = 0; i < incidence_matrix.size(); i++) {
-        Vertex left_v = left_nodes_[i];
+        Vertex left_v = *left_nodes_[i];
         left_neighbours_.push_back(left_v.get_neighbours());
     }
 
     // Right neighbours_
     for (int i = 0; i < transposed.size(); i++) {
-        Vertex right_v = right_nodes_[i];
+        Vertex right_v = *right_nodes_[i];
         right_neighbours_.push_back(right_v.get_neighbours());
 
     }
@@ -129,11 +129,11 @@ const std::vector<std::vector<std::shared_ptr<Vertex>>> & BipartiteGraph::get_le
     return left_neighbours_;
 }
 
-const std::vector<Vertex> & BipartiteGraph::get_left_nodes() {
+std::vector<std::shared_ptr<Vertex>> BipartiteGraph::get_left_nodes() {
     return left_nodes_;
 }
 
-const std::vector<Vertex> & BipartiteGraph::get_right_nodes() {
+std::vector<std::shared_ptr<Vertex>> BipartiteGraph::get_right_nodes() {
     return right_nodes_;
 }
 

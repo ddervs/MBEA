@@ -12,21 +12,22 @@ class VertexSet {
 
 public:
     VertexSet();
-    VertexSet(const std::vector<Vertex>& nodes_in);
 
-    void add_vertex(const Vertex& v);
-    void remove_vertex(const Vertex& v);
+    VertexSet(const std::vector<std::shared_ptr<Vertex>> &nodes_in);
+
+    void add_vertex(std::shared_ptr<Vertex> v);
+    void remove_vertex(std::shared_ptr<Vertex> v);
     std::string to_string();
 
     bool operator==(const VertexSet &other) const;
     void sort_by_num_neighbours();
-    int size() const;
+    unsigned long size() const;
     bool empty() const;
 
-    Vertex get_vertex(int i) const;
-    std::vector<Vertex> get_set() const;
+    std::shared_ptr<Vertex> get_vertex(int i) const;
+    std::vector<std::shared_ptr<Vertex>> get_set() const;
 private:
-    std::vector<Vertex> set_of_vertices_;
+    std::vector<std::shared_ptr<Vertex>> set_of_vertices_;
 };
 
 

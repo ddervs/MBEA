@@ -26,7 +26,7 @@ public:
     static void remove_edge(Vertex& v1, Vertex& v2);
     const std::vector<std::shared_ptr<Vertex>>& get_neighbours();
     int num_neighbours() const;
-    int num_neighbours_of_v_in_set(const std::vector<Vertex> &set);
+    int num_neighbours_of_v_in_set(const std::vector<std::shared_ptr<Vertex>> &set);
     bool is_member(const std::vector<Vertex>& set) const;
 
 
@@ -39,9 +39,9 @@ private:
 
 struct num_neighbours_cmp
 {
-    inline bool operator() (const Vertex& v1, const Vertex& v2)
+    inline bool operator() (const std::shared_ptr<Vertex>& v1, const std::shared_ptr<Vertex>& v2)
     {
-        return (v1.num_neighbours() < v2.num_neighbours());
+        return ((*v1).num_neighbours() < (*v2).num_neighbours());
     }
 };// comparator function by number of neighbours - overrides default of label
 

@@ -34,11 +34,11 @@ TEST(bipartite_graph_test, pointer_equality) {
 
     // Check pointers in left_neighbourhood equal to individual Vertex neighbours
     std::vector<std::vector<std::shared_ptr<Vertex>>> left_hood = graph.get_left_neighbours();
-    std::vector<Vertex> left_nodes = graph.get_left_nodes();
+    std::vector<std::shared_ptr<Vertex>> left_nodes = graph.get_left_nodes();
 
     for (int i = 0; i < left_hood.size(); i++) {
         std::vector<std::shared_ptr<Vertex>> v_hood_1 = left_hood[i];
-        Vertex v = left_nodes[i];
+        Vertex v = *left_nodes[i];
         const std::vector<std::shared_ptr<Vertex>>& v_hood_2 = v.get_neighbours();
         // neighbourhood size
         ASSERT_EQ(v_hood_1.size(), v_hood_2.size());
@@ -53,11 +53,11 @@ TEST(bipartite_graph_test, pointer_equality) {
 
     // Check pointers in right_neighbourhood equal to individual Vertex neighbours
     std::vector<std::vector<std::shared_ptr<Vertex>>> right_hood = graph.get_right_neighbours();
-    std::vector<Vertex> right_nodes = graph.get_right_nodes();
+    std::vector<std::shared_ptr<Vertex>> right_nodes = graph.get_right_nodes();
 
     for (int i = 0; i < right_hood.size(); i++) {
         std::vector<std::shared_ptr<Vertex>> v_hood_1 = right_hood[i];
-        Vertex v = right_nodes[i];
+        Vertex v = *right_nodes[i];
         const std::vector<std::shared_ptr<Vertex>>& v_hood_2 = v.get_neighbours();
         // neighbourhood size
         ASSERT_EQ(v_hood_1.size(), v_hood_2.size());

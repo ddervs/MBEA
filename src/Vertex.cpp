@@ -121,10 +121,10 @@ bool Vertex::is_neighbour(const Vertex &other) const {
     return std::find(neighbours_.begin(), neighbours_.end(), other) != neighbours_.end();
 }
 
-int Vertex::num_neighbours_of_v_in_set(const std::vector<Vertex> &set) {
+int Vertex::num_neighbours_of_v_in_set(const std::vector<std::shared_ptr<Vertex>> &set) {
     int out = 0;
     for (int i = 0; i < set.size(); i++) {
-        if(is_neighbour(set[i])) {
+        if(is_neighbour(*set[i])) {
             out += 1;
         }
     }
