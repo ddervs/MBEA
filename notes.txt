@@ -25,3 +25,5 @@ work.
 Used crown graphs as test cases for biclique_find as most maximal bicliques so
 explores full recursion tree. Fewest empty and gomplete graphs.
 
+Included google test hard code so future versions don't clash - risk of code
+rot though.

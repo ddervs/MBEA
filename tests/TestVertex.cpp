@@ -59,7 +59,7 @@ TEST(vertex_test, num_neighbours_of_v_in_set) {
     Vertex::add_edge(v1, v3);
     Vertex::add_edge(v2, v4);
 
-    std::vector<Vertex> test_set = {v2, v3, v4};
+    std::vector<std::shared_ptr<Vertex>> test_set = {std::make_shared<Vertex>(v2), std::make_shared<Vertex>(v3), std::make_shared<Vertex>(v4)};
     ASSERT_EQ(v1.num_neighbours_of_v_in_set(test_set), 2);
 
 }

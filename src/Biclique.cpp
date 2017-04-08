@@ -4,6 +4,7 @@
 
 #include "Biclique.h"
 #include <algorithm>
+#include <string>
 
 Biclique::Biclique(const std::vector<std::vector<int>> &incidence_matrix) : BipartiteGraph(incidence_matrix) {
 
@@ -72,16 +73,14 @@ Biclique::Biclique(const std::vector<std::shared_ptr<Vertex>> &left_vertices, co
     // Check for duplicate vertices
     std::vector<std::shared_ptr<Vertex>> all_nodes = left_nodes_;
     all_nodes.insert(all_nodes.end(), right_nodes_.begin(), right_nodes_.end());
-    std::sort(all_nodes.begin(), all_nodes.end());
+    std::sort(all_nodes.begin(), all_nodes.end(),
+              [] (const std::shared_ptr<Vertex>& v1, const std::shared_ptr<Vertex>& v2){
+                    return (*v1) < (*v2);
+    });
+    
     for (int i = 0; i < all_nodes.size() - 1; i++) {
-        if (all_nodes[i] == all_nodes[i+1]) {
+        if ((*all_nodes[i]) == (*all_nodes[i+1])) {
             throw std::runtime_error("Biclique::Biclique - Vertex " + std::to_string(i) + " is duplicated.");
-        }
-    }
-
-    for (int i = 0; i < left_vertices.size(); i++) {
-        for (int j = 0; j < right_vertices.size(); j++) {
-
         }
     }
 
