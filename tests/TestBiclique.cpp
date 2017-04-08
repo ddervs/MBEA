@@ -28,21 +28,3 @@ TEST(biclique_test, vertex_set_constructor) {
     ASSERT_ANY_THROW(Biclique graph = Biclique(left_vertices, right_vertices));
 
 }
-
-int main (int argc, char** argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-
-    int returnValue;
-
-    //Do whatever setup here you will need for your tests here
-    //
-    //
-
-    returnValue =  RUN_ALL_TESTS();
-
-    //Do Your teardown here if required
-    //
-    //
-
-    return returnValue;
-}

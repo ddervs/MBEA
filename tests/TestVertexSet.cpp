@@ -68,21 +68,3 @@ TEST(vertex_set_test, sort_by_num_neighbours) {
     ASSERT_TRUE((S.to_string() == "1 3 2 ") or (S.to_string() == "3 1 2 ") );
 
 }
-
-int main (int argc, char** argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-
-    int returnValue;
-
-    //Do whatever setup here you will need for your tests here
-    //
-    //
-
-    returnValue =  RUN_ALL_TESTS();
-
-    //Do Your teardown here if required
-    //
-    //
-
-    return returnValue;
-}
