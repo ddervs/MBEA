@@ -9,7 +9,7 @@ include_directories(lib/googletest-master/googletest/include ../src)
 
 add_subdirectory(lib/googletest-master)
 
-add_library(MBEA_lib ../src/Vertex.cpp ../src/BipartiteGraph.cpp ../src/BicliqueFinder.cpp TestBicliqueFinder.cpp ../src/Biclique.cpp ../src/Biclique.h TestBiclique.cpp ../src/VertexSet.cpp ../src/VertexSet.h)
+add_library(MBEA_lib ../src/Vertex.cpp ../src/BipartiteGraph.cpp ../src/BicliqueFinder.cpp  ../src/Biclique.cpp ../src/Biclique.h  ../src/VertexSet.cpp ../src/VertexSet.h ../src/CommandLineParser.cpp ../src/CommandLineParser.h )
 
 set(DATA_DIR ${CMAKE_SOURCE_DIR}/Testing/Data)
 set(TMP_DIR ${CMAKE_BINARY_DIR}/Testing/Temporary)
@@ -22,6 +22,7 @@ set(TEST_CASES
         TestBicliqueFinder
         TestBiclique
         TestVertexSet
+        TestCommandLineParser
         )
 
 foreach(_test_case ${TEST_CASES})
@@ -41,3 +42,4 @@ add_test(bipartite_graph_class TestBipartiteGraph)
 add_test(biclique_finder_class TestBicliqueFinder)
 add_test(biclique_class TestBiclique)
 add_test(vertex_set_class TestVertexSet)
+add_test(command_line_parser_class, TestCommandLineParser)

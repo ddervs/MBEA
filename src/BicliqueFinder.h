@@ -20,7 +20,6 @@ public:
 
     std::string get_LRPQ_initial();
 
-    //TODO: to_string() - print all bicliques
     std::string to_string();
 
     void find_maximal_bicliques(std::string algorithm);

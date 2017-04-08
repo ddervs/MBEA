@@ -27,3 +27,9 @@ explores full recursion tree. Fewest empty and gomplete graphs.
 
 Included google test hard code so future versions don't clash - risk of code
 rot though.
+
+Could dowith better command line tests using framework - for instance optional
+output file name, but learning framework takes a long time...
+
+import matrix from
+http://youngmok.com/c-code-for-reading-unknown-size-matrix-from-text-file/

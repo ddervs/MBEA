@@ -1,13 +1,19 @@
 #include <iostream>
+#include <string>
 #include "BipartiteGraph.h"
 #include <vector>
 #include "Vertex.h"
 #include "BicliqueFinder.h"
 #include <algorithm>
 #include <sys/resource.h>
+#include <fstream>
+#include "CommandLineParser.h"
 
+void print(std::string in_string) {
+    std::cout << in_string << std::endl;
+}
 
-int main() {
+int main(int argc, char* argv[]) {
 
     /*
      * Increase stack size
@@ -31,7 +37,8 @@ int main() {
     }
     */
 
-    //TODO: command line interface
+    CommandLineParser CLP = CommandLineParser(argc, argv);
+    print(CLP.output);
 
     return 0;
 }

@@ -108,7 +108,7 @@ TEST(biclique_finder_test, to_string) {
 
     ASSERT_ANY_THROW(finder_J.to_string());
     finder_J.find_maximal_bicliques("improved");
-    
+
     ASSERT_EQ(finder_J.to_string(), "2 3 4 \n3 4 5 \n2 4 6 \n1 3 5 \n1 5 6 \n1 2 6 \n");
 
 }
