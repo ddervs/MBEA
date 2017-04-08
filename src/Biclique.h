@@ -17,6 +17,8 @@ public:
 
     bool is_maximal;
 
+    std::string to_string(); 
+    
 private:
 
 };

@@ -20,6 +20,8 @@ public:
 
     std::string get_LRPQ_initial();
 
+    //TODO: to_string() - print all bicliques
+    std::string to_string();
 
     void find_maximal_bicliques(std::string algorithm);
 
@@ -33,7 +35,6 @@ private:
 
     void biclique_find_improved(const VertexSet &L_in, const VertexSet &R_in,
                                 const VertexSet &P_in, const VertexSet Q_in);
-
 
 
     VertexSet L_initial_;

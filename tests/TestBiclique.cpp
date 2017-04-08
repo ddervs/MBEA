@@ -28,3 +28,13 @@ TEST(biclique_test, vertex_set_constructor) {
     ASSERT_ANY_THROW(Biclique graph = Biclique(left_vertices, right_vertices));
 
 }
+
+TEST(biclique_test, to_string) {
+    std::vector<std::shared_ptr<Vertex>> left_vertices = {std::shared_ptr<Vertex>(new Vertex(1)), std::shared_ptr<Vertex>(new Vertex(2)), std::shared_ptr<Vertex>(new Vertex(3))};
+
+    std::vector<std::shared_ptr<Vertex>> right_vertices = {std::shared_ptr<Vertex>(new Vertex(4)), std::shared_ptr<Vertex>(new Vertex(5)), std::shared_ptr<Vertex>(new Vertex(6))};
+
+    Biclique graph = Biclique(left_vertices, right_vertices);
+
+    ASSERT_EQ(graph.to_string(), "1 2 3 4 5 6 ");
+}

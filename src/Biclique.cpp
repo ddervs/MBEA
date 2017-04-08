@@ -77,7 +77,7 @@ Biclique::Biclique(const std::vector<std::shared_ptr<Vertex>> &left_vertices, co
               [] (const std::shared_ptr<Vertex>& v1, const std::shared_ptr<Vertex>& v2){
                     return (*v1) < (*v2);
     });
-    
+
     for (int i = 0; i < all_nodes.size() - 1; i++) {
         if ((*all_nodes[i]) == (*all_nodes[i+1])) {
             throw std::runtime_error("Biclique::Biclique - Vertex " + std::to_string(i) + " is duplicated.");
@@ -109,5 +109,20 @@ Biclique::Biclique(const std::vector<std::shared_ptr<Vertex>> &left_vertices, co
 
     }
 
+}
+
+std::string Biclique::to_string() {
+    
+    std::string out;
+    
+    for (int i = 0; i < left_nodes_.size(); i++) {
+        out += std::to_string((*left_nodes_[i]).get_label()) + " ";
+    }
+
+    for (int i = 0; i < right_nodes_.size(); i++) {
+        out += std::to_string((*right_nodes_[i]).get_label()) + " ";
+    }
+    
+    return out;
 }
 

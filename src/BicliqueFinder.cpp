@@ -188,3 +188,18 @@ void BicliqueFinder::print_set(const VertexSet &set) {
     std::cout << new_set.to_string() << std::endl;
 }
 
+std::string BicliqueFinder::to_string() {
+    if (found_all) {
+        std::string out;
+        for (int i = 0; i < maximal_bicliques.size(); i++) {
+            auto biclique = maximal_bicliques[i];
+            out += biclique.to_string();
+            out += "\n";
+        }
+        return out;
+    }
+    else {
+        throw std::runtime_error("Need to run find_maximal_bicliques first");
+    }
+}
+
