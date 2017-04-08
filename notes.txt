@@ -5,8 +5,11 @@
 
 ## Notes
 
-Have had to use a custom deleter for shared_ptr in Vertex clas - so that if a
-pointer is deleted, then the Vertex object doensn't get deleted
+Have had to use a custom deleter for shared_ptr in Vertex class - so that if a
+pointer is deleted, then the Vertex object doensn't get deleted. Note that
+objects are then only deleted at end of scope so have to be careful when
+defining multiple graphs in same scope. Since command-line app, will only ever
+do one at a time so it's fine.
 
 add/remove neighbours_ in Vertex class private so can only add/remove edges.
 
@@ -18,4 +21,7 @@ but too much hassle
 note in biclique_find() methods that we pass by non-const references so that
 input variables cn be edited. Vital for the recursion in the algorithm to
 work.
+
+Used crown graphs as test cases for biclique_find as most maximal bicliques so
+explores full recursion tree. Fewest empty and gomplete graphs.
 

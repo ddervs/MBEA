@@ -13,7 +13,7 @@ Vertex::Vertex(int label) {
     v_label_ = label;
 }
 
-void Vertex::add_neighbour(Vertex& v) {
+void Vertex::add_neighbour(Vertex &v) {
 
     auto it = std::find(neighbours_.begin(), neighbours_.end(), v);
     if(it != neighbours_.end()){

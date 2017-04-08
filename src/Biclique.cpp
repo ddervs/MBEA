@@ -94,7 +94,6 @@ Biclique::Biclique(const std::vector<std::shared_ptr<Vertex>> &left_vertices, co
                 Vertex::add_edge(left, right);
             }
             catch (const std::runtime_error& e){}
-            //TODO: Will I need to remove neighbours not in biclique here...?
         }
     }
 

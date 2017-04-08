@@ -32,17 +32,11 @@ public:
 
 private:
     std::vector<std::shared_ptr<Vertex>> neighbours_;
-    void add_neighbour(Vertex& v);
+    void add_neighbour(Vertex &v);
     void remove_neighbour(Vertex& v);
     int v_label_;
 };
 
-struct num_neighbours_cmp
-{
-    inline bool operator() (const std::shared_ptr<Vertex>& v1, const std::shared_ptr<Vertex>& v2)
-    {
-        return ((*v1).num_neighbours() < (*v2).num_neighbours());
-    }
-};// comparator function by number of neighbours - overrides default of label
+
 
 #endif //MBEA_VERTEX_H

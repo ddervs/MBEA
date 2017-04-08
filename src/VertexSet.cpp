@@ -51,6 +51,15 @@ VertexSet::VertexSet(const std::vector<std::shared_ptr<Vertex>> &nodes_in) {
 
 }
 
+// comparator function by number of neighbours - overrides default of label
+struct num_neighbours_cmp
+{
+    inline bool operator() (const std::shared_ptr<Vertex>& v1, const std::shared_ptr<Vertex>& v2)
+    {
+        return ((*v1).num_neighbours() < (*v2).num_neighbours());
+    }
+};
+
 void VertexSet::sort_by_num_neighbours() {
     std::sort(set_of_vertices_.begin(), set_of_vertices_.end(), num_neighbours_cmp());
 }

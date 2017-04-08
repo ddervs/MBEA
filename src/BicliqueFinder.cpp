@@ -3,11 +3,22 @@
 //
 
 #include "BicliqueFinder.h"
-#include <string>
 #include <algorithm>
-#include<vector>
-#include "Vertex.h"
-#include "VertexSet.h"
+
+
+int ipow(int base, int exp)
+{
+    int result = 1;
+    while (exp)
+    {
+        if (exp & 1)
+            result *= base;
+        exp >>= 1;
+        base *= base;
+    }
+
+    return result;
+}
 
 BicliqueFinder::BicliqueFinder(const BipartiteGraph & graph_in) {
 
@@ -17,17 +28,19 @@ BicliqueFinder::BicliqueFinder(const BipartiteGraph & graph_in) {
 
     // R, Q initially empty
 
+    int n = (int) std::min(L_initial_.size(), P_initial_.size());
+    max_number_possible = ipow(2, n) - 2;
 }
 
 void BicliqueFinder::find_maximal_bicliques(std::string algorithm) {
 
     if (algorithm == "standard") {
-        biclique_find(L_initial_, R_initial_, P_initial_, Q_initial_, i_);
+        biclique_find(L_initial_, R_initial_, P_initial_, Q_initial_);
         found_all = true;
     }
     else if (algorithm == "improved") {
         P_initial_.sort_by_num_neighbours();
-        biclique_find_improved(L_initial_, R_initial_, P_initial_, Q_initial_, i_);
+        biclique_find_improved(L_initial_, R_initial_, P_initial_, Q_initial_);
         found_all = true;
     }
     else {
@@ -69,32 +82,23 @@ std::string BicliqueFinder::get_LRPQ_initial() {
 }
 
 void BicliqueFinder::biclique_find(const VertexSet &L_in, const VertexSet &R_in, const VertexSet &P_in,
-                                   const VertexSet &Q_in, int i) {
+                                   const VertexSet &Q_in) {
 
 }
 
 void BicliqueFinder::biclique_find_improved(const VertexSet &L_in, const VertexSet &R_in, const VertexSet &P_in,
-                                            const VertexSet Q_in, int i) {
+                                            const VertexSet Q_in) {
 
     VertexSet L = L_in;
     VertexSet R = R_in;
     VertexSet P = P_in;
     VertexSet Q = Q_in;
 
-
     while(not P.empty()) {
-        i++;
-        std::cout << "\n----------------\nIteration: i = " + std::to_string(i) + "\n----------------\n" << std::endl;
 
-        std::cout << "P = ";
-        print_set(P);
-
-        std::shared_ptr<Vertex> x = P.get_vertex(i);
-        std::cout << "x = " + std::to_string((*x).get_label()) << std::endl;
+        std::shared_ptr<Vertex> x = P.get_vertex(0);
         VertexSet R_prime = R;
         R_prime.add_vertex(x);
-        std::cout << "R\' = ";
-        print_set(R_prime);
 
         VertexSet L_prime;
         VertexSet overline_L_prime = L;
@@ -108,27 +112,16 @@ void BicliqueFinder::biclique_find_improved(const VertexSet &L_in, const VertexS
             }
 
         }
+
         C.add_vertex(x);
-
-        std::cout << "L\' = ";
-        print_set(L_prime);
-        std::cout << "\\overline{L\'} = ";
-        print_set(overline_L_prime);
-        std::cout << "C = ";
-        print_set(C);
-
 
         VertexSet P_prime;
         VertexSet Q_prime;
 
         bool is_maximal = true;
 
-        std::cout << "Q = ";
-        print_set(Q);
-
         for (int j = 0; j < Q.size(); j++) {
             std::shared_ptr<Vertex> v = Q.get_vertex(j);
-            std::cout << "v = " + std::to_string((*v).get_label()) << std::endl;
             int num_L_prime_neighbours = (*v).num_neighbours_of_v_in_set(L_prime.get_set());
 
             if (num_L_prime_neighbours == L_prime.size()) {
@@ -140,11 +133,6 @@ void BicliqueFinder::biclique_find_improved(const VertexSet &L_in, const VertexS
             }
         }
 
-        std::cout << "Q\' = ";
-        print_set(Q_prime);
-
-        std::cout << "is_maximal: " + std::to_string(is_maximal) << std::endl;
-    //TODO: More print statements
         if (is_maximal) {
             for (int j = 0; j < P.size(); j++) {
                 std::shared_ptr<Vertex> v = P.get_vertex(j);
@@ -169,9 +157,12 @@ void BicliqueFinder::biclique_find_improved(const VertexSet &L_in, const VertexS
             bicliq.is_maximal = true;
             maximal_bicliques.push_back(bicliq);
 
+            //std::cout << "Found " + std::to_string(maximal_bicliques.size()) + " out of a possible " + std::to_string(max_number_possible) + " maximal bicliques." << std::endl;
+
             if (not P_prime.empty()) {
-                biclique_find(L_prime, R_prime, P_prime, Q_prime, i_);
+                biclique_find_improved(L_prime, R_prime, P_prime, Q_prime);
             }
+
         }
         for (int j = 0; j < C.size(); j++) {
 
@@ -180,7 +171,6 @@ void BicliqueFinder::biclique_find_improved(const VertexSet &L_in, const VertexS
             P.remove_vertex(v);
 
         }
-        std::cout << std::endl;
     }
 }
 

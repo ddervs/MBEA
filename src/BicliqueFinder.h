@@ -25,15 +25,14 @@ public:
 
     void print_set(const VertexSet &set);
 
-
-
+    int max_number_possible;
 
 private:
 
-    void biclique_find(const VertexSet &L_in, const VertexSet &R_in, const VertexSet &P_in, const VertexSet &Q_in, int i);
+    void biclique_find(const VertexSet &L_in, const VertexSet &R_in, const VertexSet &P_in, const VertexSet &Q_in);
 
     void biclique_find_improved(const VertexSet &L_in, const VertexSet &R_in,
-                                const VertexSet &P_in, const VertexSet Q_in, int i);
+                                const VertexSet &P_in, const VertexSet Q_in);
 
 
 
