@@ -43,7 +43,15 @@ for p_idx in range(0, p_values.size):
             standard_error_arr[m_idx * n_values.size + n_idx] = standard_error
 
 
-    # plot
+    ## plot
+
+    #sort indices
+    sorted_indices = np.argsort(num_vertices_arr)
+    num_vertices_arr = num_vertices_arr[sorted_indices]
+    standard_error_arr = standard_error_arr[sorted_indices]
+    standard_mean_time_arr = standard_mean_time_arr[sorted_indices]
+    improved_error_arr = improved_error_arr[sorted_indices]
+    improved_mean_time_arr = improved_mean_time_arr[sorted_indices]
 
     plt.errorbar(num_vertices_arr, standard_mean_time_arr, yerr=standard_error_arr, label=r'MBEA', color='gray', linestyle='--')
     plt.errorbar(num_vertices_arr, improved_mean_time_arr, yerr=improved_error_arr, label=r'iMBEA', color='black')

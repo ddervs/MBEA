@@ -16,7 +16,7 @@ def erdos_renyi_bipartite_graph(m, n, p):
     return mask.astype(int)
 
 
-m_values = np.array([5, 10, 15, 20])
+m_values = np.array([7, 11, 16, 19])
 n_values = np.array([10, 15, 20, 25])
 p_values = np.array([0.1, 0.25, 0.5, 0.75, 0.9])
 num_reps = 20
