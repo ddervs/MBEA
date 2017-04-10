@@ -33,3 +33,11 @@ output file name, but learning framework takes a long time...
 
 import matrix from
 http://youngmok.com/c-code-for-reading-unknown-size-matrix-from-text-file/
+
+v_label_ in BipartiteGraph is int - could be templated so users could provide
+string labels.
+
+Currently only way of specifying input is incidence matrix, adjacency list
+input would be good also.
+
+

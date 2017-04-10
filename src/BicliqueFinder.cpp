@@ -81,13 +81,81 @@ std::string BicliqueFinder::get_LRPQ_initial() {
     return out;
 }
 
-void BicliqueFinder::biclique_find(const VertexSet &L_in, const VertexSet &R_in, const VertexSet &P_in,
-                                   const VertexSet &Q_in) {
+void BicliqueFinder::biclique_find(const VertexSet &L_in, const VertexSet &R_in, const VertexSet &P_in, const VertexSet &Q_in) {
+
+    VertexSet L = L_in;
+    VertexSet R = R_in;
+    VertexSet P = P_in;
+    VertexSet Q = Q_in;
+
+    while(not P.empty()) {
+        std::shared_ptr<Vertex> x = P.get_vertex(0);
+        VertexSet R_prime = R;
+        R_prime.add_vertex(x);
+
+        VertexSet L_prime;
+
+        for (int j = 0; j < L.size(); j++) {
+            std::shared_ptr<Vertex> u = L.get_vertex(j);
+            if ((*u).is_neighbour(*x)) {
+                L_prime.add_vertex(u);
+            }
+
+        }
+
+
+        VertexSet P_prime;
+        VertexSet Q_prime;
+
+        bool is_maximal = true;
+
+        for (int j = 0; j < Q.size(); j++) {
+            std::shared_ptr<Vertex> v = Q.get_vertex(j);
+            int num_L_prime_neighbours = (*v).num_neighbours_of_v_in_set(L_prime.get_set());
+
+            if (num_L_prime_neighbours == L_prime.size()) {
+                is_maximal = false;
+                break;
+            }
+            else if (num_L_prime_neighbours > 0) {
+                Q_prime.add_vertex(v);
+            }
+        }
+
+        if (is_maximal) {
+            for (int j = 0; j < P.size(); j++) {
+                std::shared_ptr<Vertex> v = P.get_vertex(j);
+                if(v == x) {
+                    continue;
+                }
+
+                int num_L_prime_neighbours = (*v).num_neighbours_of_v_in_set(L_prime.get_set());
+                if (num_L_prime_neighbours == L_prime.size()) {
+                    R_prime.add_vertex(v);
+                }
+                else if (num_L_prime_neighbours > 0) {
+                    P_prime.add_vertex(v);
+                }
+            }
+
+            Biclique bicliq = Biclique(L_prime.get_set(), R_prime.get_set());
+            bicliq.is_maximal = true;
+            maximal_bicliques.push_back(bicliq);
+
+            //std::cout << "Found " + std::to_string(maximal_bicliques.size()) + " out of a possible " + std::to_string(max_number_possible) + " maximal bicliques." << std::endl;
+
+            if (not P_prime.empty()) {
+                biclique_find(L_prime, R_prime, P_prime, Q_prime);
+            }
+
+        }
+        P.remove_vertex(x);
+        Q.add_vertex(x);
+    }
 
 }
 
-void BicliqueFinder::biclique_find_improved(const VertexSet &L_in, const VertexSet &R_in, const VertexSet &P_in,
-                                            const VertexSet Q_in) {
+void BicliqueFinder::biclique_find_improved(const VertexSet &L_in, const VertexSet &R_in, const VertexSet &P_in, const VertexSet Q_in) {
 
     VertexSet L = L_in;
     VertexSet R = R_in;
