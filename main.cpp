@@ -9,9 +9,6 @@
 #include <fstream>
 #include "CommandLineParser.h"
 
-void print(std::string in_string) {
-    std::cout << in_string << std::endl;
-}
 
 int main(int argc, char* argv[]) {
 
@@ -38,7 +35,7 @@ int main(int argc, char* argv[]) {
     */
 
     CommandLineParser CLP = CommandLineParser(argc, argv);
-    print(CLP.output);
+    std::cout << CLP.output << std::endl;
 
     return 0;
 }

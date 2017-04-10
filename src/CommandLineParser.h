@@ -14,7 +14,7 @@ struct CommandLineParser {
     std::string not_file_str;
     std::string bad_input_str = "MBEA Error: bad input file";
 
-    std::string usage = "MBEA Error: Usage instructions...";
+    std::string usage = "MBEA Usage instructions...";
     std::string err_string = "MBEA Error: Invalid input";
     std::string alg_error = "MBEA Error: Invalid algorithm specified.";
 

@@ -1,4 +1,5 @@
 *.pyc
+*.npy
 *~
 # Mercurial:
 .hg*
@@ -20,3 +21,8 @@
 # CLion/IntelliJ
 *cmake-build-debug
 .idea/*
+# experiment build
+report/experiments/MBEA
+*.pdf
+report/experiments/tempfile.txt
+
