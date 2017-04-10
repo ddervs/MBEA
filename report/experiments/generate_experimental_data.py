@@ -59,8 +59,8 @@ for m_idx in range(0, m_values.size):
 
 os.system("rm tempfile.txt")
 
-np.save("standard_results", time_vals_improved)
-np.save("improved_results", time_vals_standard)
+np.save("improved_results", time_vals_improved)
+np.save("standard_results", time_vals_standard)
 np.save("m_values", m_values)
 np.save("n_values", n_values)
 np.save("p_values", p_values)

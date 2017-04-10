@@ -53,6 +53,19 @@ for p_idx in range(0, p_values.size):
     improved_error_arr = improved_error_arr[sorted_indices]
     improved_mean_time_arr = improved_mean_time_arr[sorted_indices]
 
+    #remove duplicates (warning this discard some data)
+    to_delete = []
+    for i in range(0, num_vertices_arr.size - 1):
+        if num_vertices_arr[i] == num_vertices_arr[i+1]:
+            to_delete.append(i)
+
+    num_vertices_arr = np.delete(num_vertices_arr, to_delete)
+    standard_error_arr = np.delete(standard_error_arr, to_delete)
+    standard_mean_time_arr = np.delete(standard_mean_time_arr, to_delete)
+    improved_error_arr = np.delete(improved_error_arr, to_delete)
+    improved_mean_time_arr = np.delete(improved_mean_time_arr, to_delete)
+
+
     plt.errorbar(num_vertices_arr, standard_mean_time_arr, yerr=standard_error_arr, label=r'MBEA', color='gray', linestyle='--')
     plt.errorbar(num_vertices_arr, improved_mean_time_arr, yerr=improved_error_arr, label=r'iMBEA', color='black')
     plt.xlim([np.min(num_vertices_arr) - 0.5, np.max(num_vertices_arr) + 0.5 ])
