@@ -31,7 +31,8 @@ CommandLineParser::CommandLineParser(int argc, char **argv) {
         else {
 
             not_file_str = std::string("MBEA error: " + arg + " is not a file.");
-            parse_filename(arg, "improved");
+            algorithm = "improved";
+            parse_filename(arg);
 
         }
 
@@ -45,10 +46,12 @@ CommandLineParser::CommandLineParser(int argc, char **argv) {
 
         if ((arg2 == "improved") or (arg2 == "standard")) {
 
-            parse_filename(arg1, arg2);
+            algorithm = arg2;
+            parse_filename(arg1);
 
         }
         else {
+            append_to_output(bad_input_str);
             append_to_output(alg_error);
             append_to_output(usage);
         }
@@ -56,16 +59,18 @@ CommandLineParser::CommandLineParser(int argc, char **argv) {
 
     else {
 
-        append_to_output(too_may_args_str);
+        append_to_output(bad_input_str);
+        append_to_output(too_many_args_str);
         append_to_output(usage);
 
     }
 
 }
 
-void CommandLineParser::parse_filename(std::string filename, std::string algorithm) {
+void CommandLineParser::parse_filename(std::string filename) {
 
     std::ifstream file(filename);
+
     if (file.good()) {
 
         try {
@@ -94,6 +99,7 @@ void CommandLineParser::parse_filename(std::string filename, std::string algorit
     else {
         append_to_output(bad_input_str);
         append_to_output(not_file_str);
+        append_to_output(usage);
     }
 }
 
@@ -113,18 +119,18 @@ std::vector<std::vector<int>> CommandLineParser::read_file_to_matrix(std::string
     {
         getline(file, line);
 
-        unsigned long cols = ReadNumbers( line, v );
+        unsigned long cols = read_numbers(line, v);
 
         unsigned long rows = 0;
 
         for (unsigned long i = 1; i < 2147483647; i++){
 
             if ( not getline(file, line) ) {
-                rows = i - 1;
+                rows = i;
                 break;
             }
 
-            ReadNumbers( line, v );
+            read_numbers(line, v);
 
         }
 
@@ -150,12 +156,44 @@ std::vector<std::vector<int>> CommandLineParser::read_file_to_matrix(std::string
 
 }
 
-unsigned long CommandLineParser::ReadNumbers(const std::string &s, std::vector<int> &v) {
+unsigned long CommandLineParser::read_numbers(const std::string &s, std::vector<int> &v) {
     std::istringstream is( s );
     int n;
     while( is >> n ) {
         v.push_back( n );
     }
     return v.size();
+}
+
+std::string CommandLineParser::get_output() {
+    return output;
+}
+
+std::string CommandLineParser::get_usage() {
+    return usage;
+}
+
+std::string CommandLineParser::get_too_many_args_str() {
+    return too_many_args_str;
+}
+
+std::string CommandLineParser::get_not_file_str() {
+    return not_file_str;
+}
+
+std::string CommandLineParser::get_bad_input_str() {
+    return bad_input_str;
+}
+
+std::string CommandLineParser::get_alg_error() {
+    return alg_error;
+}
+
+std::vector<std::vector<int>> CommandLineParser::get_matrix_in() {
+    return matrix_in;
+}
+
+std::string CommandLineParser::get_algorithm() {
+    return algorithm;
 }
 

@@ -38,6 +38,9 @@ v_label_ in BipartiteGraph is int - could be templated so users could provide
 string labels.
 
 Currently only way of specifying input is incidence matrix, adjacency list
-input would be good also.
+input would be good also. End file with ONE AND ONLY ONE newline or things go awry.
+
+In command line tests, need to hard code file locations. Here we assume that
+cmake/build/debug/ is in the main directory of the library.
 
 

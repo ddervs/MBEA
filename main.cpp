@@ -35,7 +35,7 @@ int main(int argc, char* argv[]) {
     */
 
     CommandLineParser CLP = CommandLineParser(argc, argv);
-    std::cout << CLP.output << std::endl;
+    std::cout << CLP.get_output() << std::endl;
 
     return 0;
 }
