@@ -27,8 +27,6 @@ private:
     std::string not_file_str;
     std::string bad_input_str = "MBEA Error: bad input file";
 
-    // TODO: proper usage string - add to README.md
-    std::string usage = "MBEA Usage instructions...";
     std::string err_string = "MBEA Error: Invalid input";
     std::string alg_error = "MBEA Error: Invalid algorithm specified.";
     std::string algorithm;
@@ -42,6 +40,26 @@ private:
 
     std::vector<std::vector<int>> matrix_in;
 
+    std::string usage =
+            "MBEA default usage:\n"
+                    "```\n"
+                    "    ./MBEA location/of/graph_file.txt algorithm\n"
+                    "```\n"
+                    "\n"
+                    "- `algorithm`: either `standard` for MBEA or `improved` for iMBEA.\n"
+                    "\n\n"
+                    "- `graph_file.txt` is the 0-1 biadjacency matrix of a bipartite graph, where the rows index the left vertex partition and the columns index the right partition.\n"
+                    "Example: the matrix\n"
+                    "```\n"
+                    "0 1\n"
+                    "1 1\n"
+                    "1 0\n"
+                    "\n"
+                    "```\n"
+                    "encodes the adjacency relations `1->5`, `2->4`, `2->5`, `3->4`, where the left vertices have labels `{1,2,3}` and the right vertices have labels `{4,5}`. \n"
+                    "\n"
+                    "__ NOTE: elements must be space separated, one and only one newline should be at the end of the file. __\n\n"
+                    " The output to `stderr` employs this vertex labelling when describing the maximal bicliques.";
 
 };
 

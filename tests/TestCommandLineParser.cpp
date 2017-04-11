@@ -9,8 +9,6 @@
 #include <streambuf>
 
 
-//TODO: Test good/bad inputs and that correct error strings are returned
-
 TEST(command_line_parser, help_message) {
 
     int argc_1 = 1;
