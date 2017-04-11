@@ -1,0 +1,65 @@
+\documentclass[11pt,a4paper]{article}
+%-----------------------------------
+%% Geometry and layout
+\usepackage[
+  margin=1.8cm,
+  includefoot,
+  bmargin=0.9cm,
+  footskip=0.9cm
+]{geometry}
+
+\linespread{1.15}
+
+\usepackage{float}
+\setcounter{topnumber}{2}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{4}
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\bottomfraction}{0.85}
+\renewcommand{\textfraction}{0.15}
+\renewcommand{\floatpagefraction}{0.8}
+\renewcommand{\textfraction}{0.1}
+\setlength{\floatsep}{5pt plus 2pt minus 2pt}
+\setlength{\textfloatsep}{5pt plus 2pt minus 2pt}
+\setlength{\intextsep}{5pt plus 2pt minus 2pt}
+
+%-----------------------------------
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\newcommand{\supth}{\textsuperscript{th}\ }
+
+%-----------------------------------
+\usepackage{xcolor}
+\usepackage[colorlinks]{hyperref}
+%\usepackage[hyperpageref]{backref}
+\usepackage{breakurl}
+\hypersetup{
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=orange,          % color of internal links
+    citecolor=magenta,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=cyan,           % color of external links
+    runcolor=cyan
+}
+%-----------------------------------
+\usepackage{graphicx}% Include figure files
+\graphicspath{{./figures/}}
+\usepackage[font={small}]{caption}
+\usepackage{wrapfig}
+
+
+\usepackage{physics}
+
+%===================================
+\begin{document}
+\title{MBEA: Maximal Biclique Enumeration Algorithm, Implementation in C++}
+\author{Danial Dervovic}
+\date{\today}
+
+\maketitle
+\input{Main_Text.tex}
+\bibliographystyle{nicebib-alpha}
+\bibliography{refs.bib}
+\end{document}

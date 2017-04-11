@@ -1,0 +1,43 @@
+\begin{tikzpicture}
+
+%% Labels
+\node[text width=1cm, anchor=west, right] at (0,4)
+    {\LARGE $U$};
+    \node[text width=0.45cm, anchor=east, right] at (6.5,4)
+        {\LARGE $V$};
+%% Nodes
+ 
+\node[circle,fill=black,inner sep=2.5pt,label={\large 1}] (v0) at (1, 8) {};
+\node[circle,fill=black,inner sep=2.5pt,label={\large 2}] (v1) at (1, 6) {};
+\node[circle,fill=black,inner sep=2.5pt,label={\large 3}] (v2) at (1, 4) {};
+\node[circle,fill=black,inner sep=2.5pt,label={\large 4}] (v3) at (1, 2) {};
+\node[circle,fill=black,inner sep=2.5pt,label={\large 5}] (v4) at (1, 0) {};
+\node[circle,fill=black,inner sep=2.5pt,label={\large 1$^\prime$}] (v6) at (6, 8) {};
+\node[circle,fill=black,inner sep=2.5pt,label={\large 2$^\prime$}] (v7) at (6, 6) {};
+\node[circle,fill=black,inner sep=2.5pt,label={\large 3$^\prime$}] (v8) at (6, 4) {};
+\node[circle,fill=black,inner sep=2.5pt,label={\large 4$^\prime$}] (v9) at (6, 2) {};
+\node[circle,fill=black,inner sep=2.5pt,label={\large 5$^\prime$}] (v10) at (6, 0) {};
+
+%% Edges 
+\draw (v0) -- (v7);
+\draw (v0) -- (v8);
+\draw (v0) -- (v9);
+\draw (v0) -- (v10);
+\draw (v1) -- (v6);
+\draw (v1) -- (v8);
+\draw (v1) -- (v9);
+\draw (v1) -- (v10);
+\draw (v2) -- (v6);
+\draw (v2) -- (v7);
+\draw (v2) -- (v9);
+\draw (v2) -- (v10);
+\draw (v3) -- (v6);
+\draw (v3) -- (v7);
+\draw (v3) -- (v8);
+\draw (v3) -- (v10);
+\draw (v4) -- (v6);
+\draw (v4) -- (v7);
+\draw (v4) -- (v8);
+\draw (v4) -- (v9);
+
+\end{tikzpicture}
