@@ -119,6 +119,8 @@ std::string Biclique::to_string() {
         out += std::to_string((*left_nodes_[i]).get_label()) + " ";
     }
 
+    out += "| ";
+
     for (int i = 0; i < right_nodes_.size(); i++) {
         out += std::to_string((*right_nodes_[i]).get_label()) + " ";
     }

@@ -6,6 +6,7 @@ In fact, they give two slightly different algorithms.
 This report describes the implementation of these two algorithms for MPHYG002, coursework 1.
 
 \section{Background}
+
 Now let us look at the problem in detail.
 A \emph{bipartite graph} is a graph whose vertices can be partitioned into a pair of non-empty, disjoint partitions such that no two vertices in the same partition are connected by an edge.
 Let $G= (U\cup V, E)$ be a bipartite graph, with $U$ and $V$ denoting its two vertex set partitions, and $E$ denoting its edge set.
@@ -32,39 +33,76 @@ A \emph{maximal biclique} $C = (U',V')$ in $G$ is a biclique for which there is 
     \label{fig:crown}
 \end{wrapfigure}
 
-\par
-The problem we are interested in is the enumeration of all the maximal bicliques of a given bipartite graph $G$.
+The problem we are interested in is the enumeration of all the maximal bicliques in a given bipartite graph $G$.
 This problem is intrinsically computationally hard since in some cases, the number of maximal bicliques in a bipartite graph can be exponential in the number of vertices.
 An example of such a graph is the \emph{crown graph}, an example of which is shown in Figure~\ref{fig:crown}.
 For any crown graph on $2n$ vertices, there are $2^n - 2$ maximal bicliques.
 
-\par
 The algorithms by Zhang \emph{et al.} are called the (improved) Maximum Biclique Enumeration Algorithm, or iMBEA and MBEA respectively.
 MBEA roughly works by recursively choosing subsets of one of the vertex partitions and checking if the induced subgraph is a biclique and if this biclique is maximal.
 iMBEA is essentially the same as MBEA, but takes actions to prune the recursion tree of paths which won't lead to maximal bicliques and to decrease the lengths of paths which do.
 The detailed algorithms can be seen in~\cite[Algorithm: MBEA]{Zhang2014}.
 
 \section{Implementation}
+
 The C++ program written for this work, implementing both MBEA and iMBEA is called \texttt{MBEA}.
 It is a command line program which takes as input the location of a text file and a parameter to decide between MBEA and iMBEA.
 The text file should contain the biadjacency matrix of a graph.
 The program then prints a list of the maximal bicliques in the graph, according to the vertex labelling implicitly defined by the input biadjacency matrix, as well as the total number of maximal bicliques.   
 This list is printed to \texttt{stderr}, so can be piped to other programs through the command line in the usual way.
+
 \subsection{The End User and Environment}
+
 The form the program is presented in naturally assumes the user is familiar with the command line, specifically a UNIX-like terminal.
 The program needs to be built by the user on their machine, but since \texttt{MBEA} uses CMake as a build system and has few dependencies, this should be straightforward.
 Furthermore, the explicit procedure required is specified in the build instructions in \texttt{README.md}, which anyone who has used a terminal should be familiar with.
-\par
+The usage instructions for \texttt{MBEA} itself are (hopefully!) explicit enough that anyone with a passing familiarity with bipartite graphs should be able to use \texttt{MBEA} with few issues.
+
+The program has been built and tested on Mac OSX 10.12.2 with both clang-802.0.41 and gcc 6.3.0 separately, using CMake version 3.7.2.
+In theory, this should work in the same way for Linux also.
+Windows support could be added with CMake, but unfortunately time constraints prevented addition of this feature.
 
 \subsection{Code Design}
+
+The real strength of the iMBEA and MBEA algorithms over competing algorithms within this problem domain is that they explicitly take advantage of the bipartite graph structure.
+With this in mind, my first consideration was to see if the \texttt{Boost::Graph} library could be of any use.
+Unfortunately, this library has little in the way of class structure and algorithms explicitly for bipartite graphs.
+Because of this, I chose to use my own class, \texttt{BipartiteGraph} to represent a bipartite graph.
+
+A bipartite graph in essence is two sets of vertices and their adjacency relations.
+For the vertices, I created a \texttt{Vertex} class.
+Adjacency was represented by a \texttt{std::shared\_ptr} to another \texttt{Vertex} object.
+Care was taken so that for a given edge in $E$, both \texttt{Vertex} objects had the other as a neighbour.
+The smart pointer was used to help prevent memory leaks.
+Then each vertex partition was represented by an \texttt{std::vector<std::shared\_ptr<Vertex>{>}}.
+In fact, I provide a wrapper class \texttt{VertexSet} around this data type, to easily facilitate adding to and removing vertices from a set of vertices, a fundamental operation in the MBEA algorithm.
+
+\texttt{BipartiteGraph} also has the child class \texttt{Biclique}, which is natural since every biclique is a bipartite graph, but not the other way round.
+The MBEA and iMBEA algorithms are implemented in the \texttt{BicliqueFinder} class.
+The strategy pattern was used to easily switch between the iMBEA and MBEA algorithms easily.
+I use the class \texttt{CommandLineParser} to parse the input from the command line.
+Ideally some kind of Command Line Interface framework would have been preferable to use, as it would be more extensible, but this seemed overly complex for a project of this size.
+
+\subsection{Testing}
+
+I used the Googletest framework for testing, primarily because my IDE has full support for it.
+The test coverage is fairly comprehensive in terms of the classes.
+However, I would have liked more time to try more test cases per method.
+For the tests of the algorithm itself and regression tests I chose to primarily use crown graphs, as they have the maximum possible number of maximal bicliques for a given number of vertices.
+Further to this, the MBEA and iMBEA algorithms  must traverse their respective whole recursion trees to be seen to be functioning properly.
+Since for a crown graph, every node in the recursion tree gives a maximal biclique, correctly reporting the maximal bicliques in this case is a good indicator that the implementation is correct.
+
+
 \section{Experiments}
-To show an example of the code working, I ran a runtime comparison between MBEA and iMBEA.
-This experiment code is in \texttt{report/experiments/generate\_experimental\_data.py} and the results were plotted using \texttt{report/experiments/plot\_experimental\_data.py}.
+
+To show an example of the code working, I ran a runtime comparison between MBEA and iMBEA, which they do (on a much larger scale) in~\cite{Zhang2014}.
+This experiment code is in \texttt{report/experiments/generate} \texttt{\_experimental\_data.py} and the results were plotted using \texttt{report/experiments/plot\_experimental\_} \texttt{data.py}.
 \par
 More precisely, the algorithm was ran on generated Erd\H{o}s-R\'{e}nyi random bipartite graphs.
 An Erd\H{o}s-R\'enyi random bipartite graph $G(m,n,p)$ has $\abs{U} = m$, $\abs{V} =n$ and for each pair $(i,j)$ for all $i\in U$, $j\in V$ the edge $(i,j)$ exists with probability $p$.
 Erd\H{o}s-R\'enyi random bipartite graphs $G(m,n,p)$ were generated with the values $\abs{U} = \{7, 11, 16, 19\}$, $\abs{V} = \{10, 15, 20, 25\}$ and $p=\{0.1, 0.5, 0.75, 0.9\}$, with 20 graphs generated for each $(m,n,p)$ combination.
 The runtime for MBEA and iMBEA are plotted against the number of vertices for various $p$ in Figure~\ref{fig:plots}. 
+
 \begin{figure}
     \centering
     \includegraphics[width=0.95\textwidth]{plots}
@@ -76,12 +114,21 @@ The runtime for MBEA and iMBEA are plotted against the number of vertices for va
     }
     \label{fig:plots}
 \end{figure}
-\par
+
+
 Observe that in general, iMBEA is faster than MBEA as expected.
 An exception to this is in the $p=0.1$ where the graphs are more sparse.
 iMBEA comes in to its own with the more dense graphs.
 Also note that for dense graphs (with $p$ close to $1$) that the runtime starts approaching a minute for graphs on 45 vertices.
 
 \section{Conclusions}
-\subsection{Scalability}
-\subsection{Design Improvements}
+
+Due to the nature of the problem itself, this code probably can't scale to arbitrary bipartite graphs with an enormous number of vertices.
+This behaviour is reported in~\cite{Zhang2014} and is suggested by Figure~\ref{fig:plots}.
+For substantial speedup in the sense of making the runtime subexponential, the algorithm itself would need to be parallelised, with a large number of workers executing the algorithm.
+
+A design improvement I'd like to implement would be more flexible input.
+Whilst the code is robust to incorrect input and provides the appropriate warnings, ideally a user would want more options for how to input data.
+An example would be an adjacency list of vertices with string labels.
+This could probably be implemented with a modest amount of templating.
+

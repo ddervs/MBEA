@@ -36,5 +36,5 @@ TEST(biclique_test, to_string) {
 
     Biclique graph = Biclique(left_vertices, right_vertices);
 
-    ASSERT_EQ(graph.to_string(), "1 2 3 4 5 6 ");
+    ASSERT_EQ(graph.to_string(), "1 2 3 | 4 5 6 ");
 }

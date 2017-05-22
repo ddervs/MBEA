@@ -36,5 +36,5 @@ Tested on Mac OSX 10.12.2 with clang-802.0.41 and gcc 6.3.0.
 Make sure you have [CMake](https://cmake.org) 3.6 or higher installed.
 From the main `MBEA` directory:
 - `mdkdir cmake-build-debug; cd cmake-build-debug`
-- `ccmake ..` Configure your build options. If you're happy with default, simply do `cmake..`.
+- `ccmake ..` Configure your build options. If you're happy with default, simply do `cmake ..`.
 - `make` After your build completes, move the `MBEA` executable to wherever is most convenient to you.
